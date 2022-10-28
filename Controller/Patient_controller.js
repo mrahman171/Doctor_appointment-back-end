@@ -9,7 +9,7 @@ app.use(cors());
 
 const UserRegsister = async (req, resp) => {
     let admin = new patient_user(req.body);
-     
+
     let result = await admin.save();
     result = result.toObject();
     delete result.password
@@ -39,8 +39,28 @@ const loginFunction = async (req, resp) => {
     }
 }
 
+const UpdateInfo = async (req, resp) => {
+    let result = await patient_user.updateOne(
+        { _id: req.params.id },
+        { $set: req.body }
+    )
+    resp.send(result)
+}
+
+const FindPatient = async (req, resp) => {
+    let result = await patient_user.findOne({ _id: req.params.id })
+    if (result) {
+        resp.send(result)
+    } else {
+        resp.send({ "result": "No Record Found." })
+    }
+}
+
+
+
 module.exports = {
     UserRegsister,
     loginFunction,
-
+    UpdateInfo,
+    FindPatient
 }
