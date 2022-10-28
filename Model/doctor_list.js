@@ -12,8 +12,11 @@ const DoctorSchema = {
     },
     doctor_available_end_time: {
         type: String
+    },
+    contact: {
+        type: String
     }
 }
 
-const doctor = mongoose.model("doctor", DoctorSchema);
-module.exports = doctor;
+const doctors_user = mongoose.model("doctors", DoctorSchema);
+module.exports = doctors_user;

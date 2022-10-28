@@ -7,13 +7,24 @@ const PatientSchema = {
     contact: {
         type: String
     },
-    patient_ID: {
+    age: {
         type: String
     },
-    appointment_ID: {
+    email: {
         type: String
+    },
+    password: {
+        type: String,
+        trim: true,
+        minlength: 5
     }
+    // patient_ID: {
+    //     type: String
+    // }
+    // appointment_ID: {
+    //     type: String
+    // }
 }
 
-const patient_user = mongoose.model("patient", PatientSchema);
+const patient_user = mongoose.model("patients", PatientSchema);
 module.exports = patient_user;

@@ -9,6 +9,7 @@ app.use(cors());
 
 const UserRegsister = async (req, resp) => {
     let admin = new patient_user(req.body);
+     
     let result = await admin.save();
     result = result.toObject();
     delete result.password
@@ -22,7 +23,7 @@ const UserRegsister = async (req, resp) => {
 
 const loginFunction = async (req, resp) => {
     if (req.body.password && req.body.email) {
-        let user = await admin_user.findOne(req.body).select("-password");
+        let user = await patient_user.findOne(req.body).select("-password");
         if (user) {
             Jwt.sign({ user }, jwtKey, { expiresIn: "2h" }, (err, token) => {
                 if (err) {
