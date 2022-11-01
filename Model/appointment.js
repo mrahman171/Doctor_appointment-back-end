@@ -16,7 +16,7 @@ const AppointmentSchema = {
     specialization: {
         type: String
     },
-    doctor_available_start_time: {
+    Appoinment_date_time: {
         type: String
     },
      
