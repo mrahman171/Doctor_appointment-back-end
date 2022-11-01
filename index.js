@@ -7,6 +7,7 @@ const app = express();
 const Admin_ruter = require('./Route/admin_route');
 const patient_ruter = require('./Route/patient_route');
 const Doctor_ruter = require('./Route/doctor_route');
+const Appointment_ruter = require('./Route/appointment_route');
 app.use(express.json());
 app.use(cors());
 
@@ -16,7 +17,8 @@ mongoose.connect(url_l, config);
 
 app.use('/Doctor', Doctor_ruter);
 app.use('/Admin', Admin_ruter);
-app.use('/Patient', patient_ruter)
+app.use('/Patient', patient_ruter);
+app.use('/Appointment', Appointment_ruter);
 app.listen(3000);
 
 //npx kill-port 3000

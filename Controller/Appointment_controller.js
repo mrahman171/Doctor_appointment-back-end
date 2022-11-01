@@ -1,5 +1,5 @@
 const express = require("express");
-const doctors_user = require('../Model/doctor_list');
+const appointment_list = require('../Model/appointment');
 const cors = require("cors");
 const Jwt = require('jsonwebtoken');
 const jwtKey = 'e-com';
@@ -7,8 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const UserRegsister = async (req, resp) => {
-    let admin = new doctors_user(req.body);
+
+const Appointment_task = async (req, resp) => {
+    let admin = new appointment_list(req.body);
 
     let result = await admin.save();
     result = result.toObject();
@@ -21,8 +22,8 @@ const UserRegsister = async (req, resp) => {
     })
 }
 
-const FindDoctors=async (req, resp) => {
-    const doctors = await doctors_user.find();
+const FindAppointment=async (req, resp) => {
+    const doctors = await appointment_list.find();
     if (doctors.length > 0) {
         resp.send(doctors)
     } else {
@@ -30,17 +31,13 @@ const FindDoctors=async (req, resp) => {
     }
 }
 
-const FindDoctorsInfo=async (req, resp) => {
-    let result = await doctors_user.findOne({ _id: req.params.id })
-    if (result) {
-        resp.send(result)
-    } else {
-        resp.send({ "result": "No Record Found." })
-    }
+const DeleteAppiontment=async (req, resp) => {
+    let result = await appointment_list.deleteOne({ _id: req.params.id });
+    resp.send(result)
 }
 
-const SearchDoctors=async (req, resp) => {
-    let result = await doctors_user.find({
+const SearchAppointment=async (req, resp) => {
+    let result = await appointment_list.find({
         "$or": [
             {
                 name: { $regex: req.params.key }  
@@ -48,17 +45,18 @@ const SearchDoctors=async (req, resp) => {
             {
                 specialization: { $regex: req.params.key }
             },
+            {
+                name1: { $regex: req.params.key }  
+            }
              
         ]
     });
     resp.send(result);
 }
 
-
-
-module.exports = {
-    UserRegsister,
-    FindDoctors,
-    SearchDoctors,
-    FindDoctorsInfo
+module.exports ={
+    Appointment_task,
+    FindAppointment,
+    SearchAppointment,
+    DeleteAppiontment
 }
